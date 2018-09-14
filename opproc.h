@@ -10,5 +10,5 @@ typedef struct flags{
     int cargs;
 }flags;
 
-flags parsecline(int argc, char* argv);
+flags* parsecline(int argc, char* argv);
 #endif
