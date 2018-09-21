@@ -1,12 +1,12 @@
 #ifndef STATPARSE_H
 #define STATPARSE_H
 
-char getstate();
+char* getstate(char*);
 
-char* getutime();
+char* getutime(char*);
 
-char* getstime();
+char* getstime(char*);
 
-char* getvmem();
+char* getvmem(char*);
 
 #endif
