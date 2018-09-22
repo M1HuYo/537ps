@@ -138,7 +138,7 @@ int getproc(char* pid){
                                 while((uidcomp = strtok_r(charptr, "    ", &charptr)) != NULL && uid_line < 2){
                                         // if uid and pid match, return 1
                                         if(uid == atoi(uidcomp)){
-                                                printf("\nSuccess. %s was accessed.", proc_info->d_name);
+//                                                printf("\nSuccess. %s was accessed.", proc_info->d_name);
                                                 free(filename);
                                                 if(closedir(subdir) == -1){
                                                         perror("closedir");
