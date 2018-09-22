@@ -10,7 +10,7 @@
 
 typedef struct Procnode{
         char *pid;
-        Procnode* next;
+        struct Procnode* next;
 }Procnode;     
 
 Procnode* getprocs(){
@@ -142,14 +142,14 @@ int getproc(char* pid){
                                                 free(filename);
                                                 if(closedir(subdir) == -1){
                                                         perror("closedir");
-                                                        return NULL;
+                                                        return 0;
                                                 }
                                                 // Frees the process directory pointer
                                                 free(procdir);
                                                 // Closes /proc
                                                 if(closedir(procs) == -1){
                                                        perror("closedir");
-                                                       return NULL;
+                                                       return 0;
                                                 }
                                                 return 1;
                                              
@@ -161,14 +161,14 @@ int getproc(char* pid){
                                                 free(filename);
                                                 if(closedir(subdir) == -1){
                                                         perror("closedir");
-                                                        return NULL;
+                                                        return 0;
                                                 }
                                                 // Frees the process directory pointer
                                                 free(procdir);
                                                 // Closes /proc
                                                 if(closedir(procs) == -1){
                                                        perror("closedir");
-                                                       return NULL;
+                                                       return 0;
                                                 }
                                                 return 0;
                                         }
@@ -181,7 +181,7 @@ int getproc(char* pid){
                         free(filename);
                         if(closedir(subdir) == -1){
                                 perror("closedir");
-                                return NULL;
+                                return 0;
                         }
 
                 // Frees the process directory pointer
@@ -191,6 +191,8 @@ int getproc(char* pid){
         }
         if(closedir(procs) == -1){
              perror("closedir");
-             return NULL;
+             return 0;
         }
+        return 0;
 }
+
