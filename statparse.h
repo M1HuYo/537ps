@@ -9,4 +9,5 @@ char* getstime(char*);
 
 char* getvmem(char*);
 
+char* getcmdline(char*);
 #endif

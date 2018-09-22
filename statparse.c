@@ -10,7 +10,7 @@
 
 /*
 * Opens the file at: /proc/<pid>/<filename> where filename is either stat
-* or statm
+* or statm or cmdline
 */
 FILE* getfile(char* pid, char* filename)
 {
@@ -42,6 +42,15 @@ FILE* getstatmfile(char* pid)
 FILE* getstatfile(char* pid) 
 {
     char *filename = "/stat";
+    return getfile(pid, filename);
+}
+
+/*
+* Calls getfile to open the cmdline file
+*/
+FILE* getcmdlinefile(char* pid)
+{
+    char *filename = "/cmdline";
     return getfile(pid, filename);
 }
 
@@ -140,7 +149,26 @@ char* getvmem(char* pid)
         return NULL;
     }
 
-    char* vmem = getkfield(statm_file, VMEMFIELD);
+    char *vmem = getkfield(statm_file, VMEMFIELD);
 
     return vmem;
+}
+
+/*
+* Gets the cmdline file of the given process
+* Returns NULL on failure
+*/
+char* getcmdline(char* pid)
+{
+    FILE *cmdline_file = getcmdlinefile(pid);
+    
+    if (cmdline_file == NULL) 
+    {
+        fprintf(stderr, "Unable to open cmdline file of proc with id %s\n", pid);
+        return NULL;
+    }
+
+    char *cmdline = getkfield(cmdline_file, 1);
+
+    return cmdline;
 }
