@@ -93,7 +93,7 @@ Procnode* getprocs(){
 }
 
 
-char* getproc(int pid){
+int getproc(char* pid){
         DIR *procs;
         DIR *subdir;
         struct dirent *proc_info;
@@ -136,17 +136,41 @@ char* getproc(int pid){
 
                                 // Parses the line to retrieve the UID associated with the process
                                 while((uidcomp = strtok_r(charptr, "    ", &charptr)) != NULL && uid_line < 2){
-                                        // if uid and pid match, return the PID
+                                        // if uid and pid match, return 1
                                         if(uid == atoi(uidcomp)){
                                                 printf("\nSuccess. %s was accessed.", proc_info->d_name);
-
-                                                // Add the PID to an array to return
+                                                free(filename);
+                                                if(closedir(subdir) == -1){
+                                                        perror("closedir");
+                                                        return NULL;
+                                                }
+                                                // Frees the process directory pointer
+                                                free(procdir);
+                                                // Closes /proc
+                                                if(closedir(procs) == -1){
+                                                       perror("closedir");
+                                                       return NULL;
+                                                }
+                                                return 1;
+                                             
                                                 
                                         }
                                         
-                                        // For single PID lookup, if UID does not match, return NULL
+                                        // For single PID lookup, if UID does not match, return 0
                                         if(uid_line == 1 && uid != atoi(uidcomp)){
-                                                return NULL;
+                                                free(filename);
+                                                if(closedir(subdir) == -1){
+                                                        perror("closedir");
+                                                        return NULL;
+                                                }
+                                                // Frees the process directory pointer
+                                                free(procdir);
+                                                // Closes /proc
+                                                if(closedir(procs) == -1){
+                                                       perror("closedir");
+                                                       return NULL;
+                                                }
+                                                return 0;
                                         }
 
                                         uid_line++;
@@ -165,10 +189,8 @@ char* getproc(int pid){
                 }
             }
         }
-
-        // Closes /proc
         if(closedir(procs) == -1){
-                perror("closedir");
-                return NULL;
+             perror("closedir");
+             return NULL;
         }
 }
