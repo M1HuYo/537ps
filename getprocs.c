@@ -8,7 +8,12 @@
 #define UIDFIELD 6
 #define BUFFSIZE 50
 
-char** getprocs(){
+typedef struct Procnode{
+        char *pid;
+        Procnode* next;
+}Procnode;     
+
+Procnode* getprocs(){
         DIR *procs;
         DIR *subdir;
         struct dirent *proc_info;
@@ -20,10 +25,8 @@ char** getprocs(){
         char buff[BUFFSIZE];
         char *filename;
         procs = opendir(proc);
-//      if((procs = opendir("/proc")) == NULL){
-//              perror("Cannot open.");
-//              exit(1);
-//      }
+        Procnode *head = (Procnode*) malloc(sizeof(Procnode));
+        Procnode *current = head;
 
         // Runs a while loop through all the processes as long as it can access them
         while((proc_info = readdir(procs)) != NULL){
@@ -31,11 +34,8 @@ char** getprocs(){
                 strcpy(procdir, proc);
                 strcat(procdir, proc_info->d_name);
 
-                // Accesses the directory as long as it is not null
-                if((subdir = opendir(procdir)) != NULL){
-//                      perror("Cannot open");
-//              }
-//              else{
+                // Accesses the directory as long as it is not null and not a string
+                if((atoi(proc_info->d_name) == 0) && (subdir = opendir(procdir)) != NULL){
                         uid_line = 0;
                         filename = (char*) malloc(sizeof(procdir) + sizeof(char)*5);
                         strcpy(filename, procdir);
@@ -59,14 +59,15 @@ char** getprocs(){
                                 while((uidcomp = strtok_r(charptr, "    ", &charptr)) != NULL && uid_line < 2){
                                         // if uid and pid match, return the PID
                                         if(uid == atoi(uidcomp)){
-                                                printf("\nSuccess. %s was accessed.", proc_info->d_name);
+//                                                printf("\nSuccess. %s was accessed.", proc_info->d_name);
 
                                                 // Add the PID to an array to return
+                                                current->pid = proc_info->d_name;
+                                                current->next = malloc(sizeof(Procnode));
+                                                current = current->next;
                                         }
-
-                                        // For single PID lookup, if UID does not match, return NULL
-
                                         uid_line++;
+                                        
                                 }
                         }
 
@@ -74,19 +75,21 @@ char** getprocs(){
                         free(filename);
                         if(closedir(subdir) == -1){
                                 perror("closedir");
-                                return 0;
+                                return NULL;
                         }
 
                 // Frees the process directory pointer
                 free(procdir);
+                
                 }
         }
 
         // Closes /proc
         if(closedir(procs) == -1){
                 perror("closedir");
-                return 0;
+                return NULL;
         }
+        return head;
 }
 
 
@@ -102,10 +105,6 @@ char* getproc(int pid){
         char buff[BUFFSIZE];
         char *filename;
         procs = opendir(proc);
-//      if((procs = opendir("/proc")) == NULL){
-//              perror("Cannot open.");
-//              exit(1);
-//      }
 
         // Runs a while loop through all the processes as long as it can access them
         while((proc_info = readdir(procs)) != NULL){
@@ -116,9 +115,6 @@ char* getproc(int pid){
 
                 // Accesses the directory as long as it is not null
                 if((subdir = opendir(procdir)) != NULL){
-//                      perror("Cannot open");
-//              }
-//              else{
                         uid_line = 0;
                         filename = (char*) malloc(sizeof(procdir) + sizeof(char)*5);
                         strcpy(filename, procdir);
@@ -145,9 +141,13 @@ char* getproc(int pid){
                                                 printf("\nSuccess. %s was accessed.", proc_info->d_name);
 
                                                 // Add the PID to an array to return
+                                                
                                         }
-
+                                        
                                         // For single PID lookup, if UID does not match, return NULL
+                                        if(uid_line == 1 && uid != atoi(uidcomp)){
+                                                return NULL;
+                                        }
 
                                         uid_line++;
                                 }
@@ -157,7 +157,7 @@ char* getproc(int pid){
                         free(filename);
                         if(closedir(subdir) == -1){
                                 perror("closedir");
-                                return 0;
+                                return NULL;
                         }
 
                 // Frees the process directory pointer
@@ -169,6 +169,6 @@ char* getproc(int pid){
         // Closes /proc
         if(closedir(procs) == -1){
                 perror("closedir");
-                return 0;
+                return NULL;
         }
 }
