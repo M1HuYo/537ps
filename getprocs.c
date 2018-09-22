@@ -15,19 +15,20 @@ typedef struct Procnode{
 }Procnode;     
 
 Procnode* getproclist(){
-        DIR *procs;
-        DIR *subdir;
-        struct dirent *proc_info;
-        char *proc = "/proc/";
-        char *procdir;
-        int uid = getuid();
-        FILE *uid_find;
-        int uid_line;
-        char buff[BUFFSIZE];
-        char *filename;
-        Procnode *head = (Procnode*) malloc(sizeof(Procnode));
-        Procnode *current = head;
-
+    DIR *procs;
+    DIR *subdir;
+    struct dirent *proc_info;
+    char *proc = "/proc/";
+    char *procdir;
+    int uid = getuid();
+    FILE *uid_find;
+    int uid_line;
+    char buff[BUFFSIZE];
+    char *filename;
+    
+    Procnode *head = (Procnode*) malloc(sizeof(Procnode));
+    Procnode *current = head;
+   
         if ((procs = opendir(proc)) == NULL) {
             perror("Couldn't open /procs");
             return NULL;
@@ -37,20 +38,17 @@ Procnode* getproclist(){
         do {
             errno = 0;
             if ((proc_info = readdir(procs)) != NULL) {
-                printf("Start of while loop\n");
                 procdir = (char*) malloc(1 + sizeof(proc) + sizeof(proc_info->d_name));
                 strcpy(procdir, proc);
                 strcat(procdir, proc_info->d_name);
                 
-                printf("%s\n", procdir);
                 // Accesses the directory as long as it is not null and not a string
                 if((atoi(proc_info->d_name) != 0) && (subdir = opendir(procdir)) != NULL){
                         uid_line = 0;
                         filename = (char*) malloc(sizeof(procdir) + sizeof(char)*5);
                         strcpy(filename, procdir);
                         strcat(filename, "/status");
-                        
-                        printf("%s\n", filename);    
+    
                         // Attempts to open the status file within process directory
                         uid_find = fopen(filename, "r");
                         if(uid_find != NULL){
@@ -69,12 +67,11 @@ Procnode* getproclist(){
                                 while((uidcomp = strtok_r(charptr, "\t", &charptr)) != NULL && uid_line < 2){
                                         // if uid and pid match, return the PID
                                         if(uid == atoi(uidcomp)){
-                                                printf("Success. %s was accessed.\n", proc_info->d_name);
+                                                //printf("Success. %s was accessed.\n", proc_info->d_name);
 
                                                 // Add the PID to an array to return
                                                 current->pid = malloc(1 + sizeof(proc_info->d_name));
                                                 strcpy(current->pid, proc_info->d_name);
-                                                printf("%s\n", current->pid);
                                                 current->next = malloc(sizeof(Procnode));
                                                 current = current->next;
                                                 current->pid = NULL;
@@ -103,7 +100,7 @@ Procnode* getproclist(){
                 perror("closedir");
                 return NULL;
         }
-        printf("End of getprocs");
+
         return head;
 }
 

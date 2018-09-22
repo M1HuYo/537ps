@@ -12,8 +12,6 @@ int main(int argc, char** argv)
         fprintf(stderr, "Usage: 537ps -p <pid> -[sUSvc]\n");
         return 0;
     }
-    
-    printf("Gets here\n");
 
     Procnode *procs; 
     if (opts->pid_f) {
@@ -22,7 +20,6 @@ int main(int argc, char** argv)
             return 0;
         }
     } else {
-        printf("Gets here\n");
         procs = getproclist();
         if (procs == NULL) {
             fprintf(stderr, "Cannot access process");
@@ -32,17 +29,24 @@ int main(int argc, char** argv)
     
     do
     {
-        printf("%s:", opts->pid);
+        char* pid;
+        if (opts->pid_f == 1)
+        {
+            pid = opts->pid;  
+        } else {
+            pid = procs->pid;
+        }
+        printf("%s:", pid);
         if (opts->state == 1)
-            printf(" %s", getstate(opts->pid));
+            printf(" %s", getstate(pid));
         if (opts->utime == 1)
-            printf(" utime=%s", getutime(opts->pid));
+            printf(" utime=%s", getutime(pid));
         if (opts->stime == 1)
-            printf(" stime=%s", getstime(opts->pid));
+            printf(" stime=%s", getstime(pid));
         if (opts->vmem == 1)
-            printf(" vmemory=%s", getvmem(opts->pid));
+            printf(" vmemory=%s", getvmem(pid));
         if (opts->cargs == 1)
-            printf(" [%s]", getcmdline(opts->pid));
+            printf(" [%s]", getcmdline(pid));
 
         printf("\n");
         procs = procs->next;

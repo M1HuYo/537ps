@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define BUFFSIZE 128
+#define BUFFSIZE 255
 #define STATEFIELD 3
 #define UTIMEFIELD 14
 #define STIMEFIELD 15
@@ -168,7 +168,19 @@ char* getcmdline(char* pid)
         return NULL;
     }
 
-    char *cmdline = getkfield(cmdline_file, 1);
+    char buff[BUFFSIZE];
+
+    int i;
+    int c;
+    for (i = 0; i < BUFFSIZE; i++) {
+        c = fgetc(cmdline_file);
+        buff[i] = c;
+        if (c == 0)
+            break;
+    }        
+
+    char* cmdline = malloc(1 + strlen(buff));
+    strcpy(cmdline, buff);
 
     return cmdline;
 }
