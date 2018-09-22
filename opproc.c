@@ -4,12 +4,14 @@
 
 //Struct that holds whether or not the options are to be used
 typedef struct flags{
-    int pid;
+    int pid_f;
+    char* pid;
     int state;
     int utime;
     int stime;
     int vmem;
     int cargs;
+    int fail;
 }flags;
 
 /*
@@ -27,12 +29,14 @@ flags* parsecline(int argc, char *argv[])
         return NULL;
     }     
 
+    flag->pid_f = 0;
     flag->pid = 0;
     flag->state = 0;
     flag->utime = 1;
     flag->stime = 0;
     flag->vmem = 0;
     flag->cargs = 1;
+    flag->fail = 0;
     
     int *last; //Holds the last option flag so it can set it to 
                //false when '-' is used
@@ -42,8 +46,14 @@ flags* parsecline(int argc, char *argv[])
         switch(option)
         {
             case 'p':
-                flag->pid = atoi(optarg);
-                last = &flag->pid;
+                flag->pid_f = 1;
+                flag->pid = optarg;
+                if (atoi(optarg) == 0)
+                {
+                    flag->fail = 1;
+                    return NULL;
+                }
+                last = &flag->pid_f;
                 break;
             case 's':
                 flag->state = 1;
@@ -69,8 +79,8 @@ flags* parsecline(int argc, char *argv[])
                 *last = 0;
                 break;
             case '?':
-                
-                break;
+                flag->fail = 1;
+                return NULL;
         }
     }
     

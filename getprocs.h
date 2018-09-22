@@ -3,11 +3,11 @@
 
 typedef struct Procnode{
     char* pid;
-    Procnode* next;
-}
+    struct Procnode* next;
+}Procnode;
 
 Procnode* getproclist();
 
-int getproc(char* pid);
+int getproc(char*);
 
 #endif

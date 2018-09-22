@@ -13,7 +13,7 @@ typedef struct Procnode{
         struct Procnode* next;
 }Procnode;     
 
-Procnode* getprocs(){
+Procnode* getproclist(){
         DIR *procs;
         DIR *subdir;
         struct dirent *proc_info;
@@ -33,9 +33,9 @@ Procnode* getprocs(){
                 procdir = (char*) malloc(1 + sizeof(proc) + sizeof(proc_info->d_name));
                 strcpy(procdir, proc);
                 strcat(procdir, proc_info->d_name);
-
+                
                 // Accesses the directory as long as it is not null and not a string
-                if((atoi(proc_info->d_name) == 0) && (subdir = opendir(procdir)) != NULL){
+                if((atoi(proc_info->d_name) != 0) && (subdir = opendir(procdir)) != NULL){
                         uid_line = 0;
                         filename = (char*) malloc(sizeof(procdir) + sizeof(char)*5);
                         strcpy(filename, procdir);
@@ -56,15 +56,17 @@ Procnode* getprocs(){
                                 uid_line = 0;
 
                                 // Parses the line to retrieve the UID associated with the process
-                                while((uidcomp = strtok_r(charptr, "    ", &charptr)) != NULL && uid_line < 2){
+                                while((uidcomp = strtok_r(charptr, "\t", &charptr)) != NULL && uid_line < 2){
                                         // if uid and pid match, return the PID
                                         if(uid == atoi(uidcomp)){
-//                                                printf("\nSuccess. %s was accessed.", proc_info->d_name);
+                                                //printf("\nSuccess. %s was accessed.", proc_info->d_name);
 
                                                 // Add the PID to an array to return
-                                                current->pid = proc_info->d_name;
+                                                current->pid = malloc(1 + strlen(proc_info->d_name));
+                                                strcpy(current->pid, proc_info->d_name);
                                                 current->next = malloc(sizeof(Procnode));
                                                 current = current->next;
+                                                current->pid = NULL;
                                         }
                                         uid_line++;
                                         
@@ -108,7 +110,7 @@ int getproc(char* pid){
 
         // Runs a while loop through all the processes as long as it can access them
         while((proc_info = readdir(procs)) != NULL){
-            if(pid == proc_info->d_name){
+            if(atoi(pid) == atoi(proc_info->d_name)){
                 procdir = (char*) malloc(1 + sizeof(proc) + sizeof(proc_info->d_name));
                 strcpy(procdir, proc);
                 strcat(procdir, proc_info->d_name);
@@ -135,10 +137,10 @@ int getproc(char* pid){
                                 uid_line = 0;
 
                                 // Parses the line to retrieve the UID associated with the process
-                                while((uidcomp = strtok_r(charptr, "    ", &charptr)) != NULL && uid_line < 2){
+                                while((uidcomp = strtok_r(charptr, "\t", &charptr)) != NULL && uid_line < 2){
                                         // if uid and pid match, return 1
                                         if(uid == atoi(uidcomp)){
-//                                                printf("\nSuccess. %s was accessed.", proc_info->d_name);
+                                                //printf("\nSuccess. %s was accessed.", proc_info->d_name);
                                                 free(filename);
                                                 if(closedir(subdir) == -1){
                                                         perror("closedir");
