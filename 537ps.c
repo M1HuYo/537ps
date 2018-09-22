@@ -36,11 +36,11 @@ int main(int argc, char** argv)
         if (opts->state == 1)
             printf(" %s", getstate(opts->pid));
         if (opts->utime == 1)
-            printf("utime= %s", getutime(opts->pid));
+            printf(" utime=%s", getutime(opts->pid));
         if (opts->stime == 1)
-            printf("stime= %s", getstime(opts->pid));
+            printf(" stime=%s", getstime(opts->pid));
         if (opts->vmem == 1)
-            printf("vmemory= %s", getvmem(opts->pid));
+            printf(" vmemory=%s", getvmem(opts->pid));
         if (opts->cargs == 1)
             printf(" [%s]", getcmdline(opts->pid));
 
