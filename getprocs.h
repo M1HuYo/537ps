@@ -8,6 +8,6 @@ typedef struct Procnode{
 
 Procnode* getproclist();
 
-char* getproc(char* pid);
+int getproc(char* pid);
 
 #endif
