@@ -17,6 +17,10 @@ FILE* getfile(char* pid, char* filename)
     // Creates a char* with the right format
     char *proc = "/proc/";
     char *proc_dir = (char*) malloc(1 + strlen(proc) + strlen(filename) + strlen(pid));
+    if(proc_dir == NULL) {
+        fprintf(stderr, "Out of memory\n");
+        return NULL;
+    }
     strcpy(proc_dir, proc);
     strcat(proc_dir, pid);
     strcat(proc_dir, filename);
@@ -71,10 +75,16 @@ char* getkfield(FILE* file, int k)
     }  
 
     char *field = malloc(1 + strlen(buff));
+    if (field == NULL) {
+        fprintf(stderr, "Out of memory\n");
+        return NULL;
+    }
     strcpy(field, buff);
 
-    fclose(file);
-
+    if (fclose(file) == -1) {
+        fprintf(stderr, "Unable to close stat/statm/cmdline file\n");
+        return NULL;
+    }
     return field;
 }
 
@@ -180,7 +190,15 @@ char* getcmdline(char* pid)
     }        
 
     char* cmdline = malloc(1 + strlen(buff));
+    if (cmdline == NULL) {
+        fprintf(stderr, "Out of memory\n");
+    }
     strcpy(cmdline, buff);
+
+    if (fclose(cmdline_file) == -1) {
+        fprintf(stderr, "Unable to close stat/statm/cmdline file\n");
+        return NULL;
+    }
 
     return cmdline;
 }

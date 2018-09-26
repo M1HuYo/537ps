@@ -23,9 +23,8 @@ flags* parsecline(int argc, char *argv[])
     opterr = 0; //Turns off getopt error messages
 
     flags *flag = malloc(sizeof(flags));
-    if (flag == NULL)
-    {
-        fprintf(stderr, "Out of memory");
+    if (flag == NULL) {
+        fprintf(stderr, "Out of memory\n");
         return NULL;
     }     
 
@@ -41,16 +40,13 @@ flags* parsecline(int argc, char *argv[])
     int *last; //Holds the last option flag so it can set it to 
                //false when '-' is used
 
-    while ((option = getopt(argc, argv, "p:sUSvc-")) != -1) 
-    {
-        switch(option)
-        {
+    while ((option = getopt(argc, argv, "p:sUSvc-")) != -1) {
+        switch(option) {
             case 'p':
                 flag->pid_f = 1;
                 flag->pid = optarg;
-                if (atoi(optarg) == 0)
-                {
-                    flag->fail = 1;
+                if (atoi(optarg) == 0) {
+                    fprintf(stderr, "PID has to be an integer >= 0\n");
                     return NULL;
                 }
                 last = &flag->pid_f;
@@ -80,9 +76,13 @@ flags* parsecline(int argc, char *argv[])
                 break;
             case '?':
                 flag->fail = 1;
-                return NULL;
+                return flag;
         }
     }
     
+    if (optind < argc) {
+        flag->fail = 1;
+    }
+
     return flag;
 }
