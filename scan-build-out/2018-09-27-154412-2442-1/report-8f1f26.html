@@ -124,11 +124,11 @@ input.spoilerhider:checked + label + .spoiler{
 </style>
 </head>
 <body>
-<!-- BUGDESC Null pointer passed as an argument to a 'nonnull' parameter -->
+<!-- BUGDESC Potential leak of memory pointed to by 'cmdline' -->
 
-<!-- BUGTYPE Argument with 'nonnull' attribute passed null -->
+<!-- BUGTYPE Memory leak -->
 
-<!-- BUGCATEGORY API -->
+<!-- BUGCATEGORY Memory error -->
 
 <!-- BUGFILE /u/m/a/mahan/private/cs537/537ps/statparse.c -->
 
@@ -136,20 +136,20 @@ input.spoilerhider:checked + label + .spoiler{
 
 <!-- FUNCTIONNAME getcmdline -->
 
-<!-- ISSUEHASHCONTENTOFLINEINCONTEXT 2d1cb8676ef81ec6948f10b4b1200038 -->
+<!-- ISSUEHASHCONTENTOFLINEINCONTEXT 6ad141a95e786a49cbf5475eb8b4f496 -->
 
-<!-- BUGLINE 196 -->
+<!-- BUGLINE 199 -->
 
-<!-- BUGCOLUMN 5 -->
+<!-- BUGCOLUMN 9 -->
 
-<!-- BUGPATHLENGTH 10 -->
+<!-- BUGPATHLENGTH 12 -->
 
 <!-- BUGMETAEND -->
 <!-- REPORTHEADER -->
 <h3>Bug Summary</h3>
 <table class="simpletable">
 <tr><td class="rowname">File:</td><td>/u/m/a/mahan/private/cs537/537ps/statparse.c</td></tr>
-<tr><td class="rowname">Warning:</td><td><a href="#EndPath">line 196, column 5</a><br />Null pointer passed as an argument to a 'nonnull' parameter</td></tr>
+<tr><td class="rowname">Warning:</td><td><a href="#EndPath">line 199, column 9</a><br />Potential leak of memory pointed to by 'cmdline'</td></tr>
 
 </table>
 <!-- REPORTSUMMARYEXTRA -->
@@ -158,7 +158,7 @@ input.spoilerhider:checked + label + .spoiler{
    to see keyboard shortcuts</p>
 <input type="checkbox" class="spoilerhider" id="showinvocation" />
 <label for="showinvocation" >Show analyzer invocation</label>
-<div class="spoiler">clang -cc1 -triple x86_64-unknown-linux-gnu -analyze -disable-free -main-file-name statparse.c -analyzer-store=region -analyzer-opt-analyze-nested-blocks -analyzer-eagerly-assume -analyzer-checker=core -analyzer-checker=apiModeling -analyzer-checker=unix -analyzer-checker=deadcode -analyzer-checker=security.insecureAPI.UncheckedReturn -analyzer-checker=security.insecureAPI.getpw -analyzer-checker=security.insecureAPI.gets -analyzer-checker=security.insecureAPI.mktemp -analyzer-checker=security.insecureAPI.mkstemp -analyzer-checker=security.insecureAPI.vfork -analyzer-checker=nullability.NullPassedToNonnull -analyzer-checker=nullability.NullReturnedFromNonnull -analyzer-output plist -w -mrelocation-model static -mthread-model posix -mdisable-fp-elim -fmath-errno -masm-verbose -mconstructor-aliases -munwind-tables -fuse-init-array -target-cpu x86-64 -dwarf-column-info -debugger-tuning=gdb -resource-dir /afs/cs.wisc.edu/s/clang-6.0.1/@sys/lib/clang/8.0.0 -internal-isystem /usr/local/include -internal-isystem /afs/cs.wisc.edu/s/clang-6.0.1/@sys/lib/clang/8.0.0/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdebug-compilation-dir /u/m/a/mahan/private/cs537/537ps -ferror-limit 19 -fmessage-length 0 -fobjc-runtime=gcc -fdiagnostics-show-option -analyzer-output=html -o /afs/cs.wisc.edu/u/m/a/mahan/private/cs537/537ps/scan-build-out/2018-09-27-140224-4809-1 -x c statparse.c -faddrsig
+<div class="spoiler">clang -cc1 -triple x86_64-unknown-linux-gnu -analyze -disable-free -main-file-name statparse.c -analyzer-store=region -analyzer-opt-analyze-nested-blocks -analyzer-eagerly-assume -analyzer-checker=core -analyzer-checker=apiModeling -analyzer-checker=unix -analyzer-checker=deadcode -analyzer-checker=security.insecureAPI.UncheckedReturn -analyzer-checker=security.insecureAPI.getpw -analyzer-checker=security.insecureAPI.gets -analyzer-checker=security.insecureAPI.mktemp -analyzer-checker=security.insecureAPI.mkstemp -analyzer-checker=security.insecureAPI.vfork -analyzer-checker=nullability.NullPassedToNonnull -analyzer-checker=nullability.NullReturnedFromNonnull -analyzer-output plist -w -mrelocation-model static -mthread-model posix -mdisable-fp-elim -fmath-errno -masm-verbose -mconstructor-aliases -munwind-tables -fuse-init-array -target-cpu x86-64 -dwarf-column-info -debugger-tuning=gdb -resource-dir /afs/cs.wisc.edu/s/clang-6.0.1/@sys/lib/clang/8.0.0 -internal-isystem /usr/local/include -internal-isystem /afs/cs.wisc.edu/s/clang-6.0.1/@sys/lib/clang/8.0.0/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdebug-compilation-dir /u/m/a/mahan/private/cs537/537ps -ferror-limit 19 -fmessage-length 0 -fobjc-runtime=gcc -fdiagnostics-show-option -analyzer-output=html -o /afs/cs.wisc.edu/u/m/a/mahan/private/cs537/537ps/scan-build-out/2018-09-27-154412-2442-1 -x c statparse.c -faddrsig
 </div>
 <div id='tooltiphint' hidden="true">
   <p>Keyboard shortcuts: </p>
@@ -170,7 +170,7 @@ input.spoilerhider:checked + label + .spoiler{
   <a href="#" onclick="toggleHelp(); return false;">Close</a>
 </div>
 <script type='text/javascript'>
-var relevant_lines = {"1": {"15": 1, "16": 1, "18": 1, "19": 1, "20": 1, "24": 1, "25": 1, "26": 1, "28": 1, "29": 1, "31": 1, "55": 1, "56": 1, "57": 1, "58": 1, "171": 1, "172": 1, "173": 1, "175": 1, "181": 1, "183": 1, "184": 1, "185": 1, "186": 1, "187": 1, "188": 1, "189": 1, "192": 1, "193": 1, "194": 1, "196": 1}};
+var relevant_lines = {"1": {"15": 1, "16": 1, "18": 1, "19": 1, "20": 1, "24": 1, "25": 1, "26": 1, "28": 1, "29": 1, "31": 1, "55": 1, "56": 1, "57": 1, "58": 1, "171": 1, "172": 1, "173": 1, "175": 1, "181": 1, "183": 1, "184": 1, "185": 1, "186": 1, "187": 1, "188": 1, "189": 1, "192": 1, "193": 1, "196": 1, "198": 1, "199": 1}};
 
 var filterCounterexample = function (hide) {
   var tables = document.getElementsByClassName("code");
@@ -522,18 +522,20 @@ window.addEventListener("keydown", function (event) {
 <tr><td class="num"></td><td class="line"><div id="Path6" class="msg msgControl" style="margin-left:13ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexControl">6</div></td><td><div class="PathNav"><a href="#Path5" title="Previous event (5)">&#x2190;</a></div></td></td><td> Execution continues on line 192</td><td><div class="PathNav"><a href="#Path7" title="Next event (7)">&#x2192;</a></div></td></tr></table></div></td></tr>
 <tr class="codeline" data-linenumber="190"><td class="num" id="LN190">190</td><td class="line">    }        </td></tr>
 <tr class="codeline" data-linenumber="191"><td class="num" id="LN191">191</td><td class="line"> </td></tr>
-<tr class="codeline" data-linenumber="192"><td class="num" id="LN192">192</td><td class="line">    <span class="mrange"><span class='keyword'>char</span>* cmdline</span> = malloc(1 + strlen(buff));</td></tr>
-<tr><td class="num"></td><td class="line"><div id="Path7" class="msg msgEvent" style="margin-left:5ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">7</div></td><td><div class="PathNav"><a href="#Path6" title="Previous event (6)">&#x2190;</a></div></td></td><td>'cmdline' initialized here</td><td><div class="PathNav"><a href="#Path8" title="Next event (8)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr class="codeline" data-linenumber="192"><td class="num" id="LN192">192</td><td class="line">    <span class='keyword'>char</span>* cmdline = <span class="mrange">malloc(1 + strlen(buff))</span>;</td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path7" class="msg msgEvent" style="margin-left:21ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">7</div></td><td><div class="PathNav"><a href="#Path6" title="Previous event (6)">&#x2190;</a></div></td></td><td>Memory is allocated</td><td><div class="PathNav"><a href="#Path8" title="Next event (8)">&#x2192;</a></div></td></tr></table></div></td></tr>
 <tr class="codeline" data-linenumber="193"><td class="num" id="LN193">193</td><td class="line">    <span class='keyword'>if</span> (<span class="mrange">cmdline == <span class='macro'>NULL<span class='expansion'>((void*)0)</span></span></span>) {</td></tr>
-<tr><td class="num"></td><td class="line"><div id="Path8" class="msg msgEvent" style="margin-left:9ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">8</div></td><td><div class="PathNav"><a href="#Path7" title="Previous event (7)">&#x2190;</a></div></td></td><td>Assuming 'cmdline' is equal to NULL</td><td><div class="PathNav"><a href="#Path9" title="Next event (9)">&#x2192;</a></div></td></tr></table></div></td></tr>
-<tr><td class="num"></td><td class="line"><div id="Path9" class="msg msgControl" style="margin-left:5ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexControl">9</div></td><td><div class="PathNav"><a href="#Path8" title="Previous event (8)">&#x2190;</a></div></td></td><td>Taking true branch</td><td><div class="PathNav"><a href="#EndPath" title="Next event (10)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path8" class="msg msgEvent" style="margin-left:9ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">8</div></td><td><div class="PathNav"><a href="#Path7" title="Previous event (7)">&#x2190;</a></div></td></td><td>Assuming 'cmdline' is not equal to NULL</td><td><div class="PathNav"><a href="#Path9" title="Next event (9)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path9" class="msg msgControl" style="margin-left:5ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexControl">9</div></td><td><div class="PathNav"><a href="#Path8" title="Previous event (8)">&#x2190;</a></div></td></td><td>Taking false branch</td><td><div class="PathNav"><a href="#Path10" title="Next event (10)">&#x2192;</a></div></td></tr></table></div></td></tr>
 <tr class="codeline" data-linenumber="194"><td class="num" id="LN194">194</td><td class="line">        fprintf(<span class='macro'>stderr<span class='expansion'>stderr</span></span>, <span class='string_literal'>"Out of memory\n"</span>);</td></tr>
 <tr class="codeline" data-linenumber="195"><td class="num" id="LN195">195</td><td class="line">    }</td></tr>
-<tr class="codeline" data-linenumber="196"><td class="num" id="LN196">196</td><td class="line">    strcpy(<span class="mrange">cmdline</span>, buff);</td></tr>
-<tr><td class="num"></td><td class="line"><div id="EndPath" class="msg msgEvent" style="margin-left:5ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">10</div></td><td><div class="PathNav"><a href="#Path9" title="Previous event (9)">&#x2190;</a></div></td></td><td>Null pointer passed as an argument to a 'nonnull' parameter</td></tr></table></div></td></tr>
+<tr class="codeline" data-linenumber="196"><td class="num" id="LN196">196</td><td class="line">    strcpy(cmdline, buff);</td></tr>
 <tr class="codeline" data-linenumber="197"><td class="num" id="LN197">197</td><td class="line"> </td></tr>
-<tr class="codeline" data-linenumber="198"><td class="num" id="LN198">198</td><td class="line">    <span class='keyword'>if</span> (fclose(cmdline_file) == -1) {</td></tr>
+<tr class="codeline" data-linenumber="198"><td class="num" id="LN198">198</td><td class="line">    <span class='keyword'>if</span> (<span class="mrange">fclose(cmdline_file) == -1</span>) {</td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path10" class="msg msgEvent" style="margin-left:9ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">10</div></td><td><div class="PathNav"><a href="#Path9" title="Previous event (9)">&#x2190;</a></div></td></td><td>Assuming the condition is true</td><td><div class="PathNav"><a href="#Path11" title="Next event (11)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path11" class="msg msgControl" style="margin-left:5ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexControl">11</div></td><td><div class="PathNav"><a href="#Path10" title="Previous event (10)">&#x2190;</a></div></td></td><td>Taking true branch</td><td><div class="PathNav"><a href="#EndPath" title="Next event (12)">&#x2192;</a></div></td></tr></table></div></td></tr>
 <tr class="codeline" data-linenumber="199"><td class="num" id="LN199">199</td><td class="line">        fprintf(<span class='macro'>stderr<span class='expansion'>stderr</span></span>, <span class='string_literal'>"Unable to close stat/statm/cmdline file\n"</span>);</td></tr>
+<tr><td class="num"></td><td class="line"><div id="EndPath" class="msg msgEvent" style="margin-left:9ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">12</div></td><td><div class="PathNav"><a href="#Path11" title="Previous event (11)">&#x2190;</a></div></td></td><td>Potential leak of memory pointed to by 'cmdline'</td></tr></table></div></td></tr>
 <tr class="codeline" data-linenumber="200"><td class="num" id="LN200">200</td><td class="line">        <span class='keyword'>return</span> <span class='macro'>NULL<span class='expansion'>((void*)0)</span></span>;</td></tr>
 <tr class="codeline" data-linenumber="201"><td class="num" id="LN201">201</td><td class="line">    }</td></tr>
 <tr class="codeline" data-linenumber="202"><td class="num" id="LN202">202</td><td class="line"> </td></tr>

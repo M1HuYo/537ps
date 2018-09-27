@@ -124,11 +124,11 @@ input.spoilerhider:checked + label + .spoiler{
 </style>
 </head>
 <body>
-<!-- BUGDESC Dereference of undefined pointer value -->
+<!-- BUGDESC Potential leak of memory pointed to by 'flag' -->
 
-<!-- BUGTYPE Dereference of undefined pointer value -->
+<!-- BUGTYPE Memory leak -->
 
-<!-- BUGCATEGORY Logic error -->
+<!-- BUGCATEGORY Memory error -->
 
 <!-- BUGFILE /u/m/a/mahan/private/cs537/537ps/opproc.c -->
 
@@ -136,20 +136,20 @@ input.spoilerhider:checked + label + .spoiler{
 
 <!-- FUNCTIONNAME parsecline -->
 
-<!-- ISSUEHASHCONTENTOFLINEINCONTEXT c0a7cd0c95af4ce41fe3f0f040896574 -->
+<!-- ISSUEHASHCONTENTOFLINEINCONTEXT 803c64ff0aa24226785956a6083be940 -->
 
-<!-- BUGLINE 75 -->
+<!-- BUGLINE 49 -->
 
-<!-- BUGCOLUMN 23 -->
+<!-- BUGCOLUMN 21 -->
 
-<!-- BUGPATHLENGTH 7 -->
+<!-- BUGPATHLENGTH 9 -->
 
 <!-- BUGMETAEND -->
 <!-- REPORTHEADER -->
 <h3>Bug Summary</h3>
 <table class="simpletable">
 <tr><td class="rowname">File:</td><td>/u/m/a/mahan/private/cs537/537ps/opproc.c</td></tr>
-<tr><td class="rowname">Warning:</td><td><a href="#EndPath">line 75, column 23</a><br />Dereference of undefined pointer value</td></tr>
+<tr><td class="rowname">Warning:</td><td><a href="#EndPath">line 49, column 21</a><br />Potential leak of memory pointed to by 'flag'</td></tr>
 
 </table>
 <!-- REPORTSUMMARYEXTRA -->
@@ -158,7 +158,7 @@ input.spoilerhider:checked + label + .spoiler{
    to see keyboard shortcuts</p>
 <input type="checkbox" class="spoilerhider" id="showinvocation" />
 <label for="showinvocation" >Show analyzer invocation</label>
-<div class="spoiler">clang -cc1 -triple x86_64-unknown-linux-gnu -analyze -disable-free -main-file-name opproc.c -analyzer-store=region -analyzer-opt-analyze-nested-blocks -analyzer-eagerly-assume -analyzer-checker=core -analyzer-checker=apiModeling -analyzer-checker=unix -analyzer-checker=deadcode -analyzer-checker=security.insecureAPI.UncheckedReturn -analyzer-checker=security.insecureAPI.getpw -analyzer-checker=security.insecureAPI.gets -analyzer-checker=security.insecureAPI.mktemp -analyzer-checker=security.insecureAPI.mkstemp -analyzer-checker=security.insecureAPI.vfork -analyzer-checker=nullability.NullPassedToNonnull -analyzer-checker=nullability.NullReturnedFromNonnull -analyzer-output plist -w -mrelocation-model static -mthread-model posix -mdisable-fp-elim -fmath-errno -masm-verbose -mconstructor-aliases -munwind-tables -fuse-init-array -target-cpu x86-64 -dwarf-column-info -debugger-tuning=gdb -resource-dir /afs/cs.wisc.edu/s/clang-6.0.1/@sys/lib/clang/8.0.0 -internal-isystem /usr/local/include -internal-isystem /afs/cs.wisc.edu/s/clang-6.0.1/@sys/lib/clang/8.0.0/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdebug-compilation-dir /u/m/a/mahan/private/cs537/537ps -ferror-limit 19 -fmessage-length 0 -fobjc-runtime=gcc -fdiagnostics-show-option -analyzer-output=html -o /afs/cs.wisc.edu/u/m/a/mahan/private/cs537/537ps/scan-build-out/2018-09-27-140224-4809-1 -x c opproc.c -faddrsig
+<div class="spoiler">clang -cc1 -triple x86_64-unknown-linux-gnu -analyze -disable-free -main-file-name opproc.c -analyzer-store=region -analyzer-opt-analyze-nested-blocks -analyzer-eagerly-assume -analyzer-checker=core -analyzer-checker=apiModeling -analyzer-checker=unix -analyzer-checker=deadcode -analyzer-checker=security.insecureAPI.UncheckedReturn -analyzer-checker=security.insecureAPI.getpw -analyzer-checker=security.insecureAPI.gets -analyzer-checker=security.insecureAPI.mktemp -analyzer-checker=security.insecureAPI.mkstemp -analyzer-checker=security.insecureAPI.vfork -analyzer-checker=nullability.NullPassedToNonnull -analyzer-checker=nullability.NullReturnedFromNonnull -analyzer-output plist -w -mrelocation-model static -mthread-model posix -mdisable-fp-elim -fmath-errno -masm-verbose -mconstructor-aliases -munwind-tables -fuse-init-array -target-cpu x86-64 -dwarf-column-info -debugger-tuning=gdb -resource-dir /afs/cs.wisc.edu/s/clang-6.0.1/@sys/lib/clang/8.0.0 -internal-isystem /usr/local/include -internal-isystem /afs/cs.wisc.edu/s/clang-6.0.1/@sys/lib/clang/8.0.0/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdebug-compilation-dir /u/m/a/mahan/private/cs537/537ps -ferror-limit 19 -fmessage-length 0 -fobjc-runtime=gcc -fdiagnostics-show-option -analyzer-output=html -o /afs/cs.wisc.edu/u/m/a/mahan/private/cs537/537ps/scan-build-out/2018-09-27-154412-2442-1 -x c opproc.c -faddrsig
 </div>
 <div id='tooltiphint' hidden="true">
   <p>Keyboard shortcuts: </p>
@@ -170,7 +170,7 @@ input.spoilerhider:checked + label + .spoiler{
   <a href="#" onclick="toggleHelp(); return false;">Close</a>
 </div>
 <script type='text/javascript'>
-var relevant_lines = {"1": {"20": 1, "21": 1, "22": 1, "23": 1, "25": 1, "26": 1, "31": 1, "32": 1, "33": 1, "34": 1, "35": 1, "36": 1, "37": 1, "38": 1, "40": 1, "43": 1, "44": 1, "74": 1, "75": 1}};
+var relevant_lines = {"1": {"20": 1, "21": 1, "22": 1, "23": 1, "25": 1, "26": 1, "31": 1, "32": 1, "33": 1, "34": 1, "35": 1, "36": 1, "37": 1, "38": 1, "40": 1, "43": 1, "44": 1, "45": 1, "46": 1, "47": 1, "48": 1, "49": 1}};
 
 var filterCounterexample = function (hide) {
   var tables = document.getElementsByClassName("code");
@@ -349,10 +349,11 @@ window.addEventListener("keydown", function (event) {
 <tr class="codeline" data-linenumber="22"><td class="num" id="LN22">22</td><td class="line">    <span class='keyword'>int</span> option;</td></tr>
 <tr class="codeline" data-linenumber="23"><td class="num" id="LN23">23</td><td class="line">    opterr = 0; <span class='comment'>//Turns off getopt error messages</span></td></tr>
 <tr class="codeline" data-linenumber="24"><td class="num" id="LN24">24</td><td class="line"> </td></tr>
-<tr class="codeline" data-linenumber="25"><td class="num" id="LN25">25</td><td class="line">    flags *flag = malloc(<span class='keyword'>sizeof</span>(flags));</td></tr>
+<tr class="codeline" data-linenumber="25"><td class="num" id="LN25">25</td><td class="line">    flags *flag = <span class="mrange">malloc(<span class='keyword'>sizeof</span>(flags))</span>;</td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path1" class="msg msgEvent" style="margin-left:19ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">1</div></td><td>Memory is allocated</td><td><div class="PathNav"><a href="#Path2" title="Next event (2)">&#x2192;</a></div></td></tr></table></div></td></tr>
 <tr class="codeline" data-linenumber="26"><td class="num" id="LN26">26</td><td class="line">    <span class='keyword'>if</span> (<span class="mrange">flag == <span class='macro'>NULL<span class='expansion'>((void*)0)</span></span></span>) {</td></tr>
-<tr><td class="num"></td><td class="line"><div id="Path1" class="msg msgEvent" style="margin-left:9ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">1</div></td><td>Assuming 'flag' is not equal to NULL</td><td><div class="PathNav"><a href="#Path2" title="Next event (2)">&#x2192;</a></div></td></tr></table></div></td></tr>
-<tr><td class="num"></td><td class="line"><div id="Path2" class="msg msgControl" style="margin-left:5ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexControl">2</div></td><td><div class="PathNav"><a href="#Path1" title="Previous event (1)">&#x2190;</a></div></td></td><td>Taking false branch</td><td><div class="PathNav"><a href="#Path3" title="Next event (3)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path2" class="msg msgEvent" style="margin-left:9ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">2</div></td><td><div class="PathNav"><a href="#Path1" title="Previous event (1)">&#x2190;</a></div></td></td><td>Assuming 'flag' is not equal to NULL</td><td><div class="PathNav"><a href="#Path3" title="Next event (3)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path3" class="msg msgControl" style="margin-left:5ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexControl">3</div></td><td><div class="PathNav"><a href="#Path2" title="Previous event (2)">&#x2190;</a></div></td></td><td>Taking false branch</td><td><div class="PathNav"><a href="#Path4" title="Next event (4)">&#x2192;</a></div></td></tr></table></div></td></tr>
 <tr class="codeline" data-linenumber="27"><td class="num" id="LN27">27</td><td class="line">        fprintf(<span class='macro'>stderr<span class='expansion'>stderr</span></span>, <span class='string_literal'>"Out of memory\n"</span>);</td></tr>
 <tr class="codeline" data-linenumber="28"><td class="num" id="LN28">28</td><td class="line">        <span class='keyword'>return</span> <span class='macro'>NULL<span class='expansion'>((void*)0)</span></span>;</td></tr>
 <tr class="codeline" data-linenumber="29"><td class="num" id="LN29">29</td><td class="line">    }     </td></tr>
@@ -366,20 +367,22 @@ window.addEventListener("keydown", function (event) {
 <tr class="codeline" data-linenumber="37"><td class="num" id="LN37">37</td><td class="line">    flag-&gt;cargs = 1;</td></tr>
 <tr class="codeline" data-linenumber="38"><td class="num" id="LN38">38</td><td class="line">    flag-&gt;fail = 0;</td></tr>
 <tr class="codeline" data-linenumber="39"><td class="num" id="LN39">39</td><td class="line">    </td></tr>
-<tr class="codeline" data-linenumber="40"><td class="num" id="LN40">40</td><td class="line">    <span class="mrange"><span class='keyword'>int</span> *last</span>; <span class='comment'>//Holds the last option flag so it can set it to </span></td></tr>
-<tr><td class="num"></td><td class="line"><div id="Path3" class="msg msgEvent" style="margin-left:5ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">3</div></td><td><div class="PathNav"><a href="#Path2" title="Previous event (2)">&#x2190;</a></div></td></td><td>'last' declared without an initial value</td><td><div class="PathNav"><a href="#Path4" title="Next event (4)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr class="codeline" data-linenumber="40"><td class="num" id="LN40">40</td><td class="line">    <span class='keyword'>int</span> *last; <span class='comment'>//Holds the last option flag so it can set it to </span></td></tr>
 <tr class="codeline" data-linenumber="41"><td class="num" id="LN41">41</td><td class="line">               <span class='comment'>//false when '-' is used</span></td></tr>
 <tr class="codeline" data-linenumber="42"><td class="num" id="LN42">42</td><td class="line"> </td></tr>
 <tr class="codeline" data-linenumber="43"><td class="num" id="LN43">43</td><td class="line">    <span class='keyword'>while</span> (<span class="mrange">(option = getopt(argc, argv, <span class='string_literal'>"p:sUSvc-"</span>)) != -1</span>) {</td></tr>
 <tr><td class="num"></td><td class="line"><div id="Path4" class="msg msgEvent" style="margin-left:12ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">4</div></td><td><div class="PathNav"><a href="#Path3" title="Previous event (3)">&#x2190;</a></div></td></td><td>Assuming the condition is true</td><td><div class="PathNav"><a href="#Path5" title="Next event (5)">&#x2192;</a></div></td></tr></table></div></td></tr>
 <tr><td class="num"></td><td class="line"><div id="Path5" class="msg msgControl" style="margin-left:5ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexControl">5</div></td><td><div class="PathNav"><a href="#Path4" title="Previous event (4)">&#x2190;</a></div></td></td><td>Loop condition is true.  Entering loop body</td><td><div class="PathNav"><a href="#Path6" title="Next event (6)">&#x2192;</a></div></td></tr></table></div></td></tr>
 <tr class="codeline" data-linenumber="44"><td class="num" id="LN44">44</td><td class="line">        <span class='keyword'>switch</span>(option) {</td></tr>
-<tr><td class="num"></td><td class="line"><div id="Path6" class="msg msgControl" style="margin-left:9ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexControl">6</div></td><td><div class="PathNav"><a href="#Path5" title="Previous event (5)">&#x2190;</a></div></td></td><td>Control jumps to 'case 45:'  at line 74</td><td><div class="PathNav"><a href="#EndPath" title="Next event (7)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path6" class="msg msgControl" style="margin-left:9ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexControl">6</div></td><td><div class="PathNav"><a href="#Path5" title="Previous event (5)">&#x2190;</a></div></td></td><td>Control jumps to 'case 112:'  at line 45</td><td><div class="PathNav"><a href="#Path7" title="Next event (7)">&#x2192;</a></div></td></tr></table></div></td></tr>
 <tr class="codeline" data-linenumber="45"><td class="num" id="LN45">45</td><td class="line">            <span class='keyword'>case</span> 'p':</td></tr>
 <tr class="codeline" data-linenumber="46"><td class="num" id="LN46">46</td><td class="line">                flag-&gt;pid_f = 1;</td></tr>
 <tr class="codeline" data-linenumber="47"><td class="num" id="LN47">47</td><td class="line">                flag-&gt;pid = optarg;</td></tr>
-<tr class="codeline" data-linenumber="48"><td class="num" id="LN48">48</td><td class="line">                <span class='keyword'>if</span> (atoi(optarg) == 0) {</td></tr>
+<tr class="codeline" data-linenumber="48"><td class="num" id="LN48">48</td><td class="line">                <span class='keyword'>if</span> (<span class="mrange">atoi(optarg) == 0</span>) {</td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path7" class="msg msgEvent" style="margin-left:21ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">7</div></td><td><div class="PathNav"><a href="#Path6" title="Previous event (6)">&#x2190;</a></div></td></td><td>Assuming the condition is true</td><td><div class="PathNav"><a href="#Path8" title="Next event (8)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path8" class="msg msgControl" style="margin-left:17ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexControl">8</div></td><td><div class="PathNav"><a href="#Path7" title="Previous event (7)">&#x2190;</a></div></td></td><td>Taking true branch</td><td><div class="PathNav"><a href="#EndPath" title="Next event (9)">&#x2192;</a></div></td></tr></table></div></td></tr>
 <tr class="codeline" data-linenumber="49"><td class="num" id="LN49">49</td><td class="line">                    fprintf(<span class='macro'>stderr<span class='expansion'>stderr</span></span>, <span class='string_literal'>"PID has to be an integer &gt;= 0\n"</span>);</td></tr>
+<tr><td class="num"></td><td class="line"><div id="EndPath" class="msg msgEvent" style="margin-left:21ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">9</div></td><td><div class="PathNav"><a href="#Path8" title="Previous event (8)">&#x2190;</a></div></td></td><td>Potential leak of memory pointed to by 'flag'</td></tr></table></div></td></tr>
 <tr class="codeline" data-linenumber="50"><td class="num" id="LN50">50</td><td class="line">                    <span class='keyword'>return</span> <span class='macro'>NULL<span class='expansion'>((void*)0)</span></span>;</td></tr>
 <tr class="codeline" data-linenumber="51"><td class="num" id="LN51">51</td><td class="line">                }</td></tr>
 <tr class="codeline" data-linenumber="52"><td class="num" id="LN52">52</td><td class="line">                last = &amp;flag-&gt;pid_f;</td></tr>
@@ -405,8 +408,7 @@ window.addEventListener("keydown", function (event) {
 <tr class="codeline" data-linenumber="72"><td class="num" id="LN72">72</td><td class="line">                last = &amp;flag-&gt;cargs;</td></tr>
 <tr class="codeline" data-linenumber="73"><td class="num" id="LN73">73</td><td class="line">                <span class='keyword'>break</span>;   </td></tr>
 <tr class="codeline" data-linenumber="74"><td class="num" id="LN74">74</td><td class="line">            <span class='keyword'>case</span> '-':</td></tr>
-<tr class="codeline" data-linenumber="75"><td class="num" id="LN75">75</td><td class="line">                <span class="mrange">*last = 0</span>;</td></tr>
-<tr><td class="num"></td><td class="line"><div id="EndPath" class="msg msgEvent" style="margin-left:23ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">7</div></td><td><div class="PathNav"><a href="#Path6" title="Previous event (6)">&#x2190;</a></div></td></td><td>Dereference of undefined pointer value</td></tr></table></div></td></tr>
+<tr class="codeline" data-linenumber="75"><td class="num" id="LN75">75</td><td class="line">                *last = 0;</td></tr>
 <tr class="codeline" data-linenumber="76"><td class="num" id="LN76">76</td><td class="line">                <span class='keyword'>break</span>;</td></tr>
 <tr class="codeline" data-linenumber="77"><td class="num" id="LN77">77</td><td class="line">            <span class='keyword'>case</span> '?':</td></tr>
 <tr class="codeline" data-linenumber="78"><td class="num" id="LN78">78</td><td class="line">                flag-&gt;fail = 1;</td></tr>

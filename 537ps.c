@@ -23,7 +23,7 @@ int main(int argc, char** argv) {
     }
     
     // The list of processes
-    Procnode *procs; 
+    Procnode *procs = NULL; 
 
     if (opts->pid_f) {
         // Checks to see if the given PID is valid
@@ -44,10 +44,11 @@ int main(int argc, char** argv) {
     }
     
     do {
-        char* pid;
+        char* pid = NULL;
         if (opts->pid_f == 1) {
             pid = opts->pid;  
         } else {
+	    if(procs != NULL) 
             pid = procs->pid;
         } 
         
