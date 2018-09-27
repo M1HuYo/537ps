@@ -49,7 +49,7 @@ int main(int argc, char** argv) {
             pid = opts->pid;  
         } else {
 	    if(procs != NULL) 
-            pid = procs->pid;
+                pid = procs->pid;
         } 
         
         printf("%s:", pid);
