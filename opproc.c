@@ -4,7 +4,7 @@
 
 //Struct that holds whether or not the options are to be used
 typedef struct flags{
-    int pid_f;
+    int pid_f; // Flag variable for the PID, 1 if -p is used
     char* pid;
     int state;
     int utime;
@@ -80,6 +80,7 @@ flags* parsecline(int argc, char *argv[])
         }
     }
     
+    // If there is any garbage input, set fail
     if (optind < argc) {
         flag->fail = 1;
     }

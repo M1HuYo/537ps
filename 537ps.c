@@ -4,6 +4,13 @@
 #include "getprocs.h"
 #include "statparse.h"
 
+/*
+* Prints out information about user processes in this form:
+*
+* <pid>: <state> utime=<user time> stime=<system time> vmemory=<virtual memory> [<command line>]
+*
+* Usage: 537ps -p <pid> -[sUSvc]
+*/
 int main(int argc, char** argv) {
     flags* opts = parsecline(argc, argv);
     
@@ -14,9 +21,12 @@ int main(int argc, char** argv) {
         fprintf(stderr, "Usage: 537ps -p <pid> -[sUSvc]\n");
         return 0;
     }
-
+    
+    // The list of processes
     Procnode *procs; 
+
     if (opts->pid_f) {
+        // Checks to see if the given PID is valid
         if (getproc(opts->pid) == 0) {
             fprintf(stderr, "Cannot access proc with id %s\n", opts->pid);
             return 0;
@@ -80,6 +90,7 @@ int main(int argc, char** argv) {
             free(cargs);
         }
         
+        // Goes to next process and frees the last one (if -p wasn't used)
         if (opts->pid_f == 0) {
             Procnode *temp = procs;
             procs = procs->next;
