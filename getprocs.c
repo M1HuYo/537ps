@@ -9,30 +9,27 @@
 #define UIDFIELD 6
 #define BUFFSIZE 50
 
+// This Struct acts as a linked list for the process IDs that the user has a matching uid to
 typedef struct Procnode{
         char *pid;
         struct Procnode* next;
 }Procnode;     
 
+// This method generates a list of processes that the user has access to
 Procnode* getproclist(){
-    DIR *procs;
-    DIR *subdir;
-    struct dirent *proc_info;
-    char *proc = "/proc/";
-    char *procdir;
-    int uid = getuid();
-    FILE *uid_find;
-    int uid_line;
-    char buff[BUFFSIZE];
-    char *filename;
+    DIR *procs;  // This object is a pointer to the /proc directory
+    DIR *subdir;  // This object keeps track of the current process directory within /proc
+    struct dirent *proc_info;  // This object contains the current process directory information
+    char *proc = "/proc/";  // Used to help open /proc and its subdirectories
+    char *procdir;  // Used to help open a process subdirectory within /proc
+    int uid = getuid();  // Variable that stores the uid of the user
+    FILE *uid_find;  // This opens the status file to find the UID of the process
+    int uid_line;  // Stores the line containing the UID within status
+    char buff[BUFFSIZE];  // Storage for the line within the status file containing the UID
+    char *filename;  // Stores the name of the file currently trying to be opened
     
     Procnode *head = (Procnode*) malloc(sizeof(Procnode));
     Procnode *current = head;
-   
-        if ((procs = opendir(proc)) == NULL) {
-            perror("Couldn't open /procs");
-            return NULL;
-        }
 
         // Runs a while loop through all the processes as long as it can access them
         do {
@@ -58,9 +55,9 @@ Procnode* getproclist(){
                                 }
                                 fclose(uid_find);
                                                      
-                                                         // Get the UID from the status file
-                                char *uidcomp;
-                                char *charptr = buff;
+                                // Get the UID from the status file
+                                char *uidcomp;  // stores the uid obtained from the status file
+                                char *charptr = buff;  // used to iterate through the line from the status file
                                 uid_line = 0;
 
                                 // Parses the line to retrieve the UID associated with the process
@@ -106,17 +103,18 @@ Procnode* getproclist(){
 
 
 int getproc(char* pid){
-        DIR *procs;
-        DIR *subdir;
-        struct dirent *proc_info;
-        char *proc = "/proc/";
-        char *procdir;
-//        int uid = getuid();
-        FILE *uid_find;
-//        int uid_line;
-//        char buff[BUFFSIZE];
-        char *filename;
-        procs = opendir(proc);
+    	DIR *procs;  // This object is a pointer to the /proc directory
+    	DIR *subdir;  // This object keeps track of the current process directory within /proc
+        struct dirent *proc_info;  // This object contains the current process directory information
+        char *proc = "/proc/";  // Used to help open /proc and its subdirectories
+        char *procdir;  // Used to help open a process subdirectory within /proc
+        FILE *uid_find;  // This opens the status file
+        char *filename;  // Stores the name of the file currently trying to be opened
+	
+        if ((procs = opendir(proc)) == NULL) {
+            perror("Couldn't open /procs");
+            return NULL;
+        }
 
         // Runs a while loop through all the processes as long as it can access them
         while((proc_info = readdir(procs)) != NULL){
@@ -127,7 +125,6 @@ int getproc(char* pid){
 
                 // Accesses the directory as long as it is not null
                 if((subdir = opendir(procdir)) != NULL){
-//                        uid_line = 0;
                         filename = (char*) malloc(sizeof(procdir) + sizeof(char)*5);
                         strcpy(filename, procdir);
                         strcat(filename, "/status");
@@ -135,11 +132,7 @@ int getproc(char* pid){
                         // Attempts to open the status file within process directory
                         uid_find = fopen(filename, "r");
                         if(uid_find != NULL){
-//                                while(uid_line < 9){
-//                                        fgets(buff, BUFFSIZE, uid_find);
-//                                        uid_line++;
-//				}
-//				// Closes the status file
+				// Closes the status file
                                 fclose(uid_find);
 				// Frees the filename pointer
 				free(filename);
@@ -156,56 +149,23 @@ int getproc(char* pid){
 				}
 				return 1;
 	  		 }else{
-				 return 0;
+				fclose(uid_find);
+				// Frees the filename pointer
+				free(filename);
+				if(closedir(subdir) == -1){
+					perror("closedir");
+					return 0;
+				}
+				// Frees the process directory pointer
+				free(procdir);
+				// Closes /proc
+				if(closedir(procs) == -1){
+					perror("closedir");
+					return 0;
+				}
+				return 0;
 			 }
-			// Get the UID from the status file
-//                                char *uidcomp;
-//                                char *charptr = buff;
-//                                uid_line = 0;
-
-                                // Parses the line to retrieve the UID associated with the process
-//                                while((uidcomp = strtok_r(charptr, "\t", &charptr)) != NULL && uid_line < 2){
-                                        // if uid and pid match, return 1
-/*                                        if(uid == atoi(uidcomp)){
-                                                //printf("\nSuccess. %s was accessed.", proc_info->d_name);
-                                                free(filename);
-                                                if(closedir(subdir) == -1){
-                                                        perror("closedir");
-                                                        return 0;
-                                                }
-                                                // Frees the process directory pointer
-                                                free(procdir);
-                                                // Closes /proc
-                                                if(closedir(procs) == -1){
-                                                       perror("closedir");
-                                                       return 0;
-                                                }
-                                                return 1;
-                                             
-                                                
-                                        }
-                                        
-                                        // For single PID lookup, if UID does not match, return 0
-                                        if(uid_line == 1 && uid != atoi(uidcomp)){
-                                                free(filename);
-                                                if(closedir(subdir) == -1){
-                                                        perror("closedir");
-                                                        return 0;
-                                                }
-                                                // Frees the process directory pointer
-                                                free(procdir);
-                                                // Closes /proc
-                                                if(closedir(procs) == -1){
-                                                       perror("closedir");
-                                                       return 0;
-                                                }
-                                                return 0;
-                                        }
-
-                                        uid_line++;
-                                }
-                        }
-*/
+			
                         // Frees the file pointer and close the subdirectory
                         free(filename);
                         if(closedir(subdir) == -1){
