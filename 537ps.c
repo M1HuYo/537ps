@@ -35,8 +35,8 @@ int main(int argc, char** argv) {
             pid = opts->pid;  
         } else {
             pid = procs->pid;
-        }
-
+        } 
+        
         printf("%s:", pid);
 
         if (opts->state == 1) {
@@ -79,13 +79,13 @@ int main(int argc, char** argv) {
             printf(" [%s]", cargs);
             free(cargs);
         }
-
+        
+        if (opts->pid_f == 0) {
+            Procnode *temp = procs;
+            procs = procs->next;
+            free(temp);
+        }
         printf("\n");
-
-        Procnode *temp = procs;
-        procs = procs->next;
-        free(temp);
-        free(pid);
 
     } while (opts->pid_f == 0 && procs->pid != NULL); 
 
