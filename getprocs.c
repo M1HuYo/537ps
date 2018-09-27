@@ -111,10 +111,10 @@ int getproc(char* pid){
         struct dirent *proc_info;
         char *proc = "/proc/";
         char *procdir;
-        int uid = getuid();
+//        int uid = getuid();
         FILE *uid_find;
-        int uid_line;
-        char buff[BUFFSIZE];
+//        int uid_line;
+//        char buff[BUFFSIZE];
         char *filename;
         procs = opendir(proc);
 
@@ -127,7 +127,7 @@ int getproc(char* pid){
 
                 // Accesses the directory as long as it is not null
                 if((subdir = opendir(procdir)) != NULL){
-                        uid_line = 0;
+//                        uid_line = 0;
                         filename = (char*) malloc(sizeof(procdir) + sizeof(char)*5);
                         strcpy(filename, procdir);
                         strcat(filename, "/status");
@@ -135,21 +135,38 @@ int getproc(char* pid){
                         // Attempts to open the status file within process directory
                         uid_find = fopen(filename, "r");
                         if(uid_find != NULL){
-                                while(uid_line < 9){
-                                        fgets(buff, BUFFSIZE, uid_find);
-                                        uid_line++;
-                                }
+//                                while(uid_line < 9){
+//                                        fgets(buff, BUFFSIZE, uid_find);
+//                                        uid_line++;
+//				}
+//				// Closes the status file
                                 fclose(uid_find);
-                                                     
-                                                         // Get the UID from the status file
-                                char *uidcomp;
-                                char *charptr = buff;
-                                uid_line = 0;
+				// Frees the filename pointer
+				free(filename);
+				if(closedir(subdir) == -1){
+					perror("closedir");
+					return 0;
+				}
+				// Frees the process directory pointer
+				free(procdir);
+				// Closes /proc
+				if(closedir(procs) == -1){
+					perror("closedir");
+					return 0;
+				}
+				return 1;
+	  		 }else{
+				 return 0;
+			 }
+			// Get the UID from the status file
+//                                char *uidcomp;
+//                                char *charptr = buff;
+//                                uid_line = 0;
 
                                 // Parses the line to retrieve the UID associated with the process
-                                while((uidcomp = strtok_r(charptr, "\t", &charptr)) != NULL && uid_line < 2){
+//                                while((uidcomp = strtok_r(charptr, "\t", &charptr)) != NULL && uid_line < 2){
                                         // if uid and pid match, return 1
-                                        if(uid == atoi(uidcomp)){
+/*                                        if(uid == atoi(uidcomp)){
                                                 //printf("\nSuccess. %s was accessed.", proc_info->d_name);
                                                 free(filename);
                                                 if(closedir(subdir) == -1){
@@ -188,7 +205,7 @@ int getproc(char* pid){
                                         uid_line++;
                                 }
                         }
-
+*/
                         // Frees the file pointer and close the subdirectory
                         free(filename);
                         if(closedir(subdir) == -1){
@@ -205,6 +222,6 @@ int getproc(char* pid){
              perror("closedir");
              return 0;
         }
-        return 0;
+        return -1;
 }
 

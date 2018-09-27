@@ -28,13 +28,17 @@ int main(int argc, char** argv) {
     if (opts->pid_f) {
         // Checks to see if the given PID is valid
         if (getproc(opts->pid) == 0) {
-            fprintf(stderr, "Cannot access proc with id %s\n", opts->pid);
+            fprintf(stderr, "Cannot access the process with id: %s\n", opts->pid);
             return 0;
         }
+	else if (getproc(opts->pid) == -1) {
+	    fprintf(stderr, "Process with id %s does not exist.\n", opts->pid);
+	    return 0;
+	}
     } else {
         procs = getproclist();
         if (procs == NULL) {
-            fprintf(stderr, "Cannot access process");
+            fprintf(stderr, "You do not have access to any current running processes.");
             return 0;
         }   
     }
