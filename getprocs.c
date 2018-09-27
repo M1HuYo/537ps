@@ -115,7 +115,7 @@ int getproc(char* pid){
 	
         if ((procs = opendir(proc)) == NULL) {
             perror("Couldn't open /procs");
-            return NULL;
+            return 0;
         }
 
         // Runs a while loop through all the processes as long as it can access them
