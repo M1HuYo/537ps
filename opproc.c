@@ -46,6 +46,7 @@ flags* parsecline(int argc, char *argv[])
                 flag->pid_f = 1;
                 flag->pid = optarg;
                 if (atoi(optarg) == 0) {
+		    free(flag);
                     fprintf(stderr, "PID has to be an integer >= 0\n");
                     return NULL;
                 }
@@ -73,7 +74,7 @@ flags* parsecline(int argc, char *argv[])
                 break;   
             case '-':
                 *last = 0;
-                break;
+		break;
             case '?':
                 flag->fail = 1;
                 return flag;
@@ -84,6 +85,5 @@ flags* parsecline(int argc, char *argv[])
     if (optind < argc) {
         flag->fail = 1;
     }
-
     return flag;
 }
