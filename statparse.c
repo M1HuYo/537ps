@@ -82,6 +82,7 @@ char* getkfield(FILE* file, int k)
     strcpy(field, buff);
 
     if (fclose(file) == -1) {
+        free(field);
         fprintf(stderr, "Unable to close stat/statm/cmdline file\n");
         return NULL;
     }
@@ -178,7 +179,7 @@ char* getcmdline(char* pid)
         return NULL;
     }
 
-    char buff[BUFFSIZE];
+    char* buff = malloc(sizeof(char) * BUFFSIZE);	
 
     int i;
     int c;
@@ -192,13 +193,19 @@ char* getcmdline(char* pid)
     char* cmdline = malloc(1 + strlen(buff));
     if (cmdline == NULL) {
         fprintf(stderr, "Out of memory\n");
+    } else{ 
+	if(buff != NULL){
+	    strcpy(cmdline, buff);
+	}
     }
-    strcpy(cmdline, buff);
 
     if (fclose(cmdline_file) == -1) {
+	free(cmdline);
+	free(buff);
         fprintf(stderr, "Unable to close stat/statm/cmdline file\n");
         return NULL;
     }
 
+    free(buff);
     return cmdline;
 }
