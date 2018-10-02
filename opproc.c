@@ -37,7 +37,7 @@ flags* parsecline(int argc, char *argv[])
     flag->cargs = 1;
     flag->fail = 0;
     
-    int *last; //Holds the last option flag so it can set it to 
+    int *last = &flag->pid_f; //Holds the last option flag so it can set it to 
                //false when '-' is used
 
     while ((option = getopt(argc, argv, "p:sUSvc-")) != -1) {
